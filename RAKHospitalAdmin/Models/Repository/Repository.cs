@@ -9,6 +9,10 @@ using LinqKit;
 
 namespace RAKHospitalAdmin.Models
 {
+    /// <summary>
+    /// Base class for data base access, and contains basic Crud operations.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class Repository<T> : IDisposable where T : class
     {
         protected DbContext _context;

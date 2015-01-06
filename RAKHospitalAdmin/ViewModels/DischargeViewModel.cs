@@ -11,6 +11,9 @@ using System.Windows;
 
 namespace RAKHospitalAdmin.ViewModels
 {
+    /// <summary>
+    /// This is class that handles all interaction with Discharge Window
+    /// </summary>
     public class DischargeViewModel : ObservableObject
     {        
         #region Properties
@@ -126,6 +129,9 @@ namespace RAKHospitalAdmin.ViewModels
        
         #endregion
 
+        /// <summary>
+        /// This is Discharge Command which executes when user clicks Calulate Discharge button.
+        /// </summary>
         #region DischargeCommand
         private RelayCommand _dischargeCommand;
         public RelayCommand DischargeCommand
@@ -135,18 +141,24 @@ namespace RAKHospitalAdmin.ViewModels
 
         private void OnDischargeCommand()
         {
+            //Validate user input
             if (this.SelectedPatient == null)
             {
                 MessageBox.Show("Please select Patient", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-           
+
+           //Calulate charge with formula daySpend * roomCost
+
             this.Name = this.SelectedPatient.Name;
             this.DocName = this.SelectedPatient.Doctor.Name;
             this.DateAdmittedString = this.SelectedPatient.DateAdmitted.ToShortDateString();
             this.DateDischargedString = this.SelectedDischargeDate.GetValueOrDefault().ToShortDateString();
 
+            //Get day spend on room by Patient
             var days = Math.Ceiling((this.SelectedDischargeDate - this.SelectedPatient.DateAdmitted).GetValueOrDefault().TotalDays);
+
+            //Get charge amount
             this.TotalAmount = this.SelectedPatient.RoomCategory.Cost * days;
 
             this.SelectedPatient = null;
@@ -154,9 +166,13 @@ namespace RAKHospitalAdmin.ViewModels
         }
         #endregion
         
+        /// <summary>
+        /// Loading patients list from database. 
+        /// </summary>
         public void LoadData()
         {
             this.IsLoading = true;
+            //With AsyncMethodExecuter we can run loading in asyn mode
             this.AsyncMethodExecuter((e) =>
             {                
                 var patRep = new PatientRepository();

@@ -9,6 +9,9 @@ using System.Windows;
 
 namespace RAKHospitalAdmin.ViewModels
 {
+    /// <summary>
+    /// This is class that handles all interaction with Patient Window
+    /// </summary>
     public class PatientViewModel : ObservableObject
     {
         DataBaseContext context;
@@ -117,6 +120,9 @@ namespace RAKHospitalAdmin.ViewModels
 
         #region Commands
 
+        /// <summary>
+        /// This is an add patient command which is executed when user clicks add patient
+        /// </summary>
         #region AddPatientCommand
         private RelayCommand _addPatientCommand;
         public RelayCommand AddPatientCommand
@@ -126,6 +132,7 @@ namespace RAKHospitalAdmin.ViewModels
 
         private void OnAddPatientCommand()
         {
+            // User input validation
             if (string.IsNullOrEmpty(this.Name))
             {
                 MessageBox.Show("Please enter Patient name", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -142,6 +149,7 @@ namespace RAKHospitalAdmin.ViewModels
                 return;
             }
             
+            //Adding patient object to database
             Patient pat = new Patient();
             pat.Name = this.Name;
             pat.RoomCategory = this.SelectedRoom;
@@ -150,6 +158,7 @@ namespace RAKHospitalAdmin.ViewModels
             context.Patients.Add(pat);
             context.SaveChanges();
 
+            //adding saved patient to ListView
             this.Patients.Add(pat);
 
             this.Name = "";
@@ -161,9 +170,13 @@ namespace RAKHospitalAdmin.ViewModels
         
         #endregion
 
+        /// <summary>
+        /// Loads necessary data from Database e.g. existing Doctors, Patients, Rooms
+        /// </summary>
         public void LoadData()
         {
             this.IsLoading = true;
+            //With AsyncMethodExecuter we can run loading in asyn mode
             this.AsyncMethodExecuter((e) =>
             {
                 context = new DataBaseContext();

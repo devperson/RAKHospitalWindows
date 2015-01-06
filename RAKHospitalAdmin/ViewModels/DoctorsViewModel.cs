@@ -9,6 +9,9 @@ using System.Windows;
 
 namespace RAKHospitalAdmin.ViewModels
 {
+    /// <summary>
+    /// This is class that handles all interaction with Doctor Window
+    /// </summary>
     public class DoctorsViewModel : ObservableObject
     {
         DataBaseContext context;
@@ -89,6 +92,9 @@ namespace RAKHospitalAdmin.ViewModels
 
         #region Commands
 
+        /// <summary>
+        /// This is Add doctor command which executed when user fills and clicks add doctor button
+        /// </summary>
         #region AddDoctorCommand
         private RelayCommand _addDoctorCommand;
         public RelayCommand AddDoctorCommand
@@ -98,6 +104,7 @@ namespace RAKHospitalAdmin.ViewModels
 
         private void OnAddDoctorCommand()
         {
+            //Validate user input
             if (string.IsNullOrEmpty(this.Name))
             {
                MessageBox.Show("Please enter Doctor name", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -114,6 +121,7 @@ namespace RAKHospitalAdmin.ViewModels
                 return;
             }
             
+            // Add doctor object to database
             Doctor doc = new Doctor();
             doc.Name = this.Name;
             doc.Salary = this.Salary;
@@ -121,6 +129,7 @@ namespace RAKHospitalAdmin.ViewModels
             context.Doctors.Add(doc);
             context.SaveChanges();
 
+            //add doctor to UI grid
             this.Doctors.Add(doc);
 
             this.Name = "";
@@ -131,9 +140,13 @@ namespace RAKHospitalAdmin.ViewModels
 
         #endregion
 
+        /// <summary>
+        /// Load nessary data from database e.g. existing doctors, specializations
+        /// </summary>
         public void LoadData()
         {
             this.IsLoading = true;
+            //With AsyncMethodExecuter we can run loading in asyn mode
             this.AsyncMethodExecuter((e) =>
             {
                 context = new DataBaseContext();

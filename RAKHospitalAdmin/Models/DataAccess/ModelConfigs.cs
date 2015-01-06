@@ -6,6 +6,8 @@ using System.Web;
 
 namespace RAKHospitalAdmin.Models
 {    
+    //These classes configures some of the mapping from Db table column to object properties, by default all mappings from db column to object properties happens by name matching.
+
     public class DoctorModelConfig : EntityTypeConfiguration<Doctor>
     {
         public DoctorModelConfig()

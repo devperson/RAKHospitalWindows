@@ -5,6 +5,9 @@ using System.Text;
 
 namespace RAKHospitalAdmin.Models
 {
+    /// <summary>
+    /// This is a Doctor class subclass of person. It also is mapped to Doctor database table.
+    /// </summary>
     public class Doctor : Person
     {
         public double Salary { get; set; }

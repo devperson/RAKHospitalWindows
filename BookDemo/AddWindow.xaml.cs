@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace BookDemo
 {
     /// <summary>
-    /// Interaction logic for AddWindow.xaml
+    /// Add Text Book window
     /// </summary>
     public partial class AddWindow : Window
     {
@@ -24,6 +24,9 @@ namespace BookDemo
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Ok button click event, if user validation passed sets window result to OK
+        /// </summary>      
         private void btnOk(object sender, System.Windows.RoutedEventArgs e)
         {
             var book = this.DataContext as TextBook;
@@ -47,10 +50,18 @@ namespace BookDemo
                 MessageBox.Show("Price should be between 20 and 80", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            if (MainWindow.CoffeeTableBooksList.Contains(book))
+            {
+                MessageBox.Show("Book with such ISBN already exist", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
             this.DialogResult = true;
         }
 
+        /// <summary>
+        /// Cancel button click event sets window result to canceled
+        /// </summary>      
         private void btnCancel(object sender, System.Windows.RoutedEventArgs e)
         {
             this.DialogResult = false;

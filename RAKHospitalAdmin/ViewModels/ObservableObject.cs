@@ -7,6 +7,9 @@ using System.Text;
 
 namespace RAKHospitalAdmin.ViewModels
 {
+    /// <summary>
+    /// Base class for ViewModels
+    /// </summary>
     public class ObservableObject : INotifyPropertyChanged
     {
         private bool _isloading;
@@ -24,6 +27,10 @@ namespace RAKHospitalAdmin.ViewModels
         }
         
         public event PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// INotifyPropertyChanged implementation its required to update UI when models changes.
+        /// </summary>
+        /// <param name="propertyName"></param>
         public void RaisePropertyChanged(string propertyName)
         {
             if (this.PropertyChanged != null)
@@ -32,6 +39,11 @@ namespace RAKHospitalAdmin.ViewModels
             }
         }
 
+        /// <summary>
+        /// With this method we can run code asynchronously
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="callback"></param>
         public void AsyncMethodExecuter(Action<DoWorkEventArgs> method, Action<RunWorkerCompletedEventArgs> callback = null)
         {
             BackgroundWorker backgroundWorker = new BackgroundWorker();
@@ -50,7 +62,13 @@ namespace RAKHospitalAdmin.ViewModels
 
     public static class ObservableBaseEx
     {
-        //override 1
+        /// <summary>
+        /// This is extenstion RaisePropertyChanged which allows us to pass properties instead of string property name. 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="observableBase"></param>
+        /// <param name="expression"></param>
         public static void RaisePropertyChanged<T, TProperty>(this T observableBase, Expression<Func<T, TProperty>> expression) where T : ObservableObject
         {
             observableBase.RaisePropertyChanged(observableBase.GetPropertyName(expression));

@@ -8,7 +8,7 @@ using System.Windows;
 namespace BookDemo
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Application main class, contains configuration for setting main window, and contains application lyfecycle events.
     /// </summary>
     public partial class App : Application
     {

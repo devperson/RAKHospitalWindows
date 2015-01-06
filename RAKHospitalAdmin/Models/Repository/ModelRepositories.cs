@@ -8,6 +8,9 @@ using System.Web;
 
 namespace RAKHospitalAdmin.Models
 {    
+    /// <summary>
+    /// This class provides database access for Specializations db table.
+    /// </summary>
     public class SpecializationRepository : Repository<Specialization>
     {
         public SpecializationRepository()
@@ -20,6 +23,9 @@ namespace RAKHospitalAdmin.Models
         }      
     }
 
+    /// <summary>
+    /// This class provides database access for Doctors db table.
+    /// </summary>
     public class DoctorRepository : Repository<Doctor>
     {
         public DoctorRepository()
@@ -31,12 +37,18 @@ namespace RAKHospitalAdmin.Models
         {
         }
 
+        /// <summary>
+        /// Loads doctors including related Specialization data.
+        /// </summary>        
         public IEnumerable<Doctor> GetIgerly()
         {
             return this._context.Set<Doctor>().Include("Specialization").AsEnumerable();
         }
     }
 
+    /// <summary>
+    /// This class provides database access for Patients db table.
+    /// </summary>
     public class PatientRepository : Repository<Patient>
     {
         public PatientRepository(DbContext context)
@@ -48,12 +60,18 @@ namespace RAKHospitalAdmin.Models
         {
         }
 
+        /// <summary>
+        /// Loads doctors including related Doctor, RoomCategory data.
+        /// </summary>        
         public IEnumerable<Patient> GetIgerly()
         {
             return this._context.Set<Patient>().Include("Doctor").Include("RoomCategory").AsEnumerable();
         }
     }
 
+    /// <summary>
+    /// This class provides database access for Rooms db table.
+    /// </summary>
     public class RoomRepository : Repository<Room>
     {
         public RoomRepository(DbContext context)

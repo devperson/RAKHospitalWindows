@@ -6,8 +6,15 @@ using System.Web;
 
 namespace RAKHospitalAdmin.Models
 {
+    /// <summary>
+    /// This class used before to make connection to DataBase, here we can make configurations such as  CreateDatabaseIfNotExists, DropCreateDatabaseAlways, DropCreateDatabaseIfModelChanges
+    /// </summary>
     public class DataBaseInitializer : CreateDatabaseIfNotExists<DataBaseContext>
     {
+        /// <summary>
+        /// Populates database tables with default data if any, note this method will only run when database is being created.
+        /// </summary>
+        /// <param name="context"></param>
         protected override void Seed(DataBaseContext context)
         {
             Room rA = new Room();

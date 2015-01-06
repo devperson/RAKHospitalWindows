@@ -5,6 +5,9 @@ using System.Text;
 
 namespace RAKHospitalAdmin.Models
 {
+    /// <summary>
+    /// This is a Doctor class it represents Specialization database table.
+    /// </summary>
     public class Specialization
     {
         public int Id { get; set; }
