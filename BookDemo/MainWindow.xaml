@@ -1,0 +1,45 @@
+﻿<Window x:Class="BookDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+    	<TabControl>
+    		<TabItem Header="TextBooks">
+    			<Grid Background="#FFE5E5E5">
+    				<Grid.RowDefinitions>
+    					<RowDefinition Height="Auto"/>
+    					<RowDefinition/>
+    				</Grid.RowDefinitions>
+    				<Button x:Name="btnAddTextBook" Content="Add" HorizontalAlignment="Right" VerticalAlignment="Top" Width="90" Margin="10" FontSize="13.333" FontWeight="Bold" Click="btnAddTextBook_Click"/>
+    				<DataGrid x:Name="booksGrid" Grid.Row="1" Margin="5" AutoGenerateColumns="False" IsReadOnly="True">
+    					<DataGrid.Columns>
+    						<DataGridTextColumn Header="ISBN" Binding="{Binding ISBN}"/>
+    						<DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+    						<DataGridTextColumn Header="Author" Binding="{Binding Author}"/>
+    						<DataGridTextColumn Header="Price" Binding="{Binding Price}"/>
+    						<DataGridTextColumn Header="Grade level" Binding="{Binding GradeLevel}"/>
+    					</DataGrid.Columns>
+    				</DataGrid>
+    			</Grid>
+    		</TabItem>
+    		<TabItem Header="CoffeeTableBooks">
+    			<Grid Background="#FFE5E5E5">
+    				<Grid.RowDefinitions>
+    					<RowDefinition Height="Auto"/>
+    					<RowDefinition/>
+    				</Grid.RowDefinitions>
+    				<Button x:Name="btnAddCoffeeBook" Content="Add" HorizontalAlignment="Right" VerticalAlignment="Top" Width="90" Margin="10" FontSize="13.333" FontWeight="Bold" Click="btnAddCoffeeBook_Click"/>
+    				<DataGrid x:Name="coffeebooksGrid" Grid.Row="1" Margin="5" AutoGenerateColumns="False" IsReadOnly="True">
+    					<DataGrid.Columns>
+    						<DataGridTextColumn Header="ISBN" Binding="{Binding ISBN}"/>
+    						<DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
+    						<DataGridTextColumn Header="Author" Binding="{Binding Author}"/>
+    						<DataGridTextColumn Header="Price" Binding="{Binding Price}"/>
+    					</DataGrid.Columns>
+    				</DataGrid>
+    			</Grid>
+    		</TabItem>
+    	</TabControl>
+        
+    </Grid>
+</Window>
